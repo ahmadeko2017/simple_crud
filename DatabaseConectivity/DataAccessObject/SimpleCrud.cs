@@ -42,14 +42,14 @@ public static class SimpleCrud
                             countries.Add(country);
                         }
                         return (List<T>) Convert.ChangeType(countries, typeof(List<T>));
-                    case "department" :
+                    case "departments" :
                         List<Department> departments = new List<Department>();
                         while (reader.Read())
                         {
                             var id = reader.GetInt32(0);
                             var name = reader.GetString(1);
                             var locationId = reader.GetInt32(2);
-                            var managerId = reader.GetInt32(3);
+                            int? managerId = reader.IsDBNull(3) ? default : reader.GetInt32(3);
                             var department = new Department(id, name, locationId, managerId);
                             departments.Add(department);
                         }
@@ -60,12 +60,12 @@ public static class SimpleCrud
                         {
                             var id = reader.GetInt32(0);
                             var firstName = reader.GetString(1);
-                            var lastName = reader.GetString(2);
+                            var lastName = reader.IsDBNull(2) ? default : reader.GetString(2);
                             var email = reader.GetString(3);
-                            var phoneNumber = reader.GetString(4);
+                            var phoneNumber = reader.IsDBNull(4) ? default : reader.GetString(4);
                             var hireDate = reader.GetDateTime(5);
-                            var salary = reader.GetInt32(6);
-                            var commissionPct = reader.GetDecimal(7);
+                            int? salary = reader.IsDBNull(3) ? default : reader.GetInt32(6);
+                            decimal? commissionPct = reader.IsDBNull(7) ? default :  reader.GetDecimal(7);
                             var managerId = reader.GetInt32(8);
                             var jobId = reader.GetString(9);
                             var departmentId = reader.GetInt32(10);
@@ -79,7 +79,7 @@ public static class SimpleCrud
                         {
                             var startDate = reader.GetDateTime(0);
                             var employeeId = reader.GetInt32(1);
-                            var endDate = reader.GetDateTime(2);
+                            DateTime? endDate = reader.IsDBNull(2) ? null :  reader.GetDateTime(2);
                             var departmentId = reader.GetInt32(3);
                             var jobId = reader.GetString(4);
                             var history = new History(startDate, employeeId, endDate, departmentId, jobId);
@@ -92,8 +92,8 @@ public static class SimpleCrud
                         {
                             var id = reader.GetString(0);
                             var title = reader.GetString(1);
-                            var minSalary = reader.GetInt32(2);
-                            var maxSalary = reader.GetInt32(3);
+                            int? minSalary = reader.IsDBNull(2) ? null :  reader.GetInt32(2);
+                            int? maxSalary = reader.IsDBNull(3) ? null :  reader.GetInt32(3);
                             var job = new Job(id, title, minSalary, maxSalary);
                             jobs.Add(job);
                         }
@@ -103,10 +103,10 @@ public static class SimpleCrud
                         while (reader.Read())
                         {
                             var id = reader.GetInt32(0);
-                            var streetAddress = reader.GetString(1);
-                            var postalCode = reader.GetString(2);
+                            var streetAddress = reader.IsDBNull(1) ? null :  reader.GetString(1);
+                            var postalCode = reader.IsDBNull(2) ? null :  reader.GetString(2);
                             var city = reader.GetString(3);
-                            var stateProvince = reader.GetString(4);
+                            var stateProvince = reader.IsDBNull(4) ? null :  reader.GetString(4);
                             var countryId = reader.GetString(5);
                             var location = new Location(id, streetAddress, postalCode, city, stateProvince, countryId);
                             locations.Add(location);
@@ -138,7 +138,7 @@ public static class SimpleCrud
             Console.WriteLine("Error connecting to database.");
         }
 
-        return null;
+        return default;
     }
     
     public static void InsertTable(string table, string? idStr = default, int idInt = default, string? name = default, 

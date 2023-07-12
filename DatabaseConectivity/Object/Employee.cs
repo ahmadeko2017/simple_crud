@@ -2,7 +2,7 @@
 
 public class Employee
 {
-    public Employee(int id, string firsName, string? lastName, string email, string? phoneNumber, DateTime hireDate, int? salary, decimal? commissionPct, int managerId, string jobId, int departmentId)
+    public Employee(int id, string firsName, string lastName, string email, string phoneNumber, DateTime hireDate, int? salary, decimal? commissionPct, int? managerId, string jobId, int departmentId)
     {
         Id = id;
         FirsName = firsName;
@@ -25,7 +25,7 @@ public class Employee
     public DateTime HireDate { get; }
     public int? Salary { get; }
     public decimal? CommissionPct { get; }
-    public int ManagerId { get; }
+    public int? ManagerId { get; }
     public string JobId { get; }
     public int DepartmentId { get; }
 }
