@@ -31,31 +31,31 @@ public static class SimpleCrud
                 switch (table)
                 {
                     case "countries" :
-                        List<Countries> countries = new List<Countries>();
+                        List<Country> countries = new List<Country>();
                         while (reader.Read())
                         {
                             
                             var id = reader.GetString(0);
                             var name = reader.GetString(1);
                             var regionId = reader.GetInt32(2);
-                            var country = new Countries(id, name, regionId);
+                            var country = new Country(id, name, regionId);
                             countries.Add(country);
                         }
                         return (List<T>) Convert.ChangeType(countries, typeof(List<T>));
                     case "department" :
-                        List<Departments> departments = new List<Departments>();
+                        List<Department> departments = new List<Department>();
                         while (reader.Read())
                         {
                             var id = reader.GetInt32(0);
                             var name = reader.GetString(1);
                             var locationId = reader.GetInt32(2);
                             var managerId = reader.GetInt32(3);
-                            var department = new Departments(id, name, locationId, managerId);
+                            var department = new Department(id, name, locationId, managerId);
                             departments.Add(department);
                         }
                         return (List<T>) Convert.ChangeType(departments, typeof(List<T>));
                     case "employees" :
-                        List<Employees> employees = new List<Employees>();
+                        List<Employee> employees = new List<Employee>();
                         while (reader.Read())
                         {
                             var id = reader.GetInt32(0);
@@ -69,12 +69,12 @@ public static class SimpleCrud
                             var managerId = reader.GetInt32(8);
                             var jobId = reader.GetString(9);
                             var departmentId = reader.GetInt32(10);
-                            var employee = new Employees(id, firstName, lastName, email, phoneNumber, hireDate, salary, commissionPct, managerId, jobId, departmentId);
+                            var employee = new Employee(id, firstName, lastName, email, phoneNumber, hireDate, salary, commissionPct, managerId, jobId, departmentId);
                             employees.Add(employee);
                         }
                         return (List<T>) Convert.ChangeType(employees, typeof(List<T>));
                     case "histories" :
-                        List<Histories> histories = new List<Histories>();
+                        List<History> histories = new List<History>();
                         while (reader.Read())
                         {
                             var startDate = reader.GetDateTime(0);
@@ -82,24 +82,24 @@ public static class SimpleCrud
                             var endDate = reader.GetDateTime(2);
                             var departmentId = reader.GetInt32(3);
                             var jobId = reader.GetString(4);
-                            var history = new Histories(startDate, employeeId, endDate, departmentId, jobId);
+                            var history = new History(startDate, employeeId, endDate, departmentId, jobId);
                             histories.Add(history);
                         }
                         return (List<T>) Convert.ChangeType(histories, typeof(List<T>));
                     case "jobs" :
-                        List<Jobs> jobs = new List<Jobs>();
+                        List<Job> jobs = new List<Job>();
                         while (reader.Read())
                         {
                             var id = reader.GetString(0);
                             var title = reader.GetString(1);
                             var minSalary = reader.GetInt32(2);
                             var maxSalary = reader.GetInt32(3);
-                            var job = new Jobs(id, title, minSalary, maxSalary);
+                            var job = new Job(id, title, minSalary, maxSalary);
                             jobs.Add(job);
                         }
                         return (List<T>) Convert.ChangeType(jobs, typeof(List<T>));
                     case "locations" :
-                        List<Locations> locations = new List<Locations>();
+                        List<Location> locations = new List<Location>();
                         while (reader.Read())
                         {
                             var id = reader.GetInt32(0);
@@ -108,17 +108,17 @@ public static class SimpleCrud
                             var city = reader.GetString(3);
                             var stateProvince = reader.GetString(4);
                             var countryId = reader.GetString(5);
-                            var location = new Locations(id, streetAddress, postalCode, city, stateProvince, countryId);
+                            var location = new Location(id, streetAddress, postalCode, city, stateProvince, countryId);
                             locations.Add(location);
                         }
                         return (List<T>) Convert.ChangeType(locations, typeof(List<T>));
                     case "regions" :
-                        List<Regions> regions = new List<Regions>();
+                        List<Region> regions = new List<Region>();
                         while (reader.Read())
                         {
                             var id = reader.GetInt32(0);
                             var name = reader.GetString(1);
-                            var region = new Regions(id, name);
+                            var region = new Region(id, name);
                             regions.Add(region);
                         }
                         return (List<T>) Convert.ChangeType(regions, typeof(List<T>));
@@ -930,7 +930,7 @@ public static class SimpleCrud
                             var id = reader.GetString(0);
                             var name = reader.GetString(1);
                             var regionId = reader.GetInt32(2);
-                            var country = new Countries(id, name, regionId);
+                            var country = new Country(id, name, regionId);
                             return (T) Convert.ChangeType(country, typeof(T));
                         }
                         break;
@@ -942,7 +942,7 @@ public static class SimpleCrud
                             var name = reader.GetString(1);
                             var locationId = reader.GetInt32(2);
                             var managerId = reader.GetInt32(3);
-                            var department = new Departments(id, name, locationId, managerId);
+                            var department = new Department(id, name, locationId, managerId);
                             return (T) Convert.ChangeType(department, typeof(T));
                         }
                         break;
@@ -960,7 +960,7 @@ public static class SimpleCrud
                             var managerId = reader.GetInt32(8);
                             var jobId = reader.GetString(9);
                             var departmentId = reader.GetInt32(10);
-                            var employee = new Employees(id, firstName, lastName, email, phoneNumber, hireDate, salary, commissionPct, managerId, jobId, departmentId);
+                            var employee = new Employee(id, firstName, lastName, email, phoneNumber, hireDate, salary, commissionPct, managerId, jobId, departmentId);
                             return (T) Convert.ChangeType(employee, typeof(List<T>));
                         }
                         break;
@@ -972,7 +972,7 @@ public static class SimpleCrud
                             var endDate = reader.GetDateTime(2);
                             var departmentId = reader.GetInt32(3);
                             var jobId = reader.GetString(4);
-                            var history = new Histories(startDate, employeeId, endDate, departmentId, jobId);
+                            var history = new History(startDate, employeeId, endDate, departmentId, jobId);
                             return (T) Convert.ChangeType(history, typeof(T));
                         }
                         break;
@@ -983,7 +983,7 @@ public static class SimpleCrud
                             var title = reader.GetString(1);
                             var minSalary = reader.GetInt32(2);
                             var maxSalary = reader.GetInt32(3);
-                            var job = new Jobs(id, title, minSalary, maxSalary);
+                            var job = new Job(id, title, minSalary, maxSalary);
                             return (T) Convert.ChangeType(job, typeof(T));
                         }
                         break;
@@ -996,7 +996,7 @@ public static class SimpleCrud
                             var city = reader.GetString(3);
                             var stateProvince = reader.GetString(4);
                             var countryId = reader.GetString(5);
-                            var location = new Locations(id, streetAddress, postalCode, city, stateProvince, countryId);
+                            var location = new Location(id, streetAddress, postalCode, city, stateProvince, countryId);
                             return (T) Convert.ChangeType(location, typeof(T));
                         }
                         break;
@@ -1005,7 +1005,7 @@ public static class SimpleCrud
                         {
                             var id = reader.GetInt32(0);
                             var name = reader.GetString(1);
-                            var region = new Regions(id, name);
+                            var region = new Region(id, name);
                             return (T) Convert.ChangeType(region, typeof(T));
                         }
                         break;

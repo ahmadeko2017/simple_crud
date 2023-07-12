@@ -1,8 +1,8 @@
 ﻿namespace DatabaseConectivity.Object;
 
-public class Departments
+public class Department
 {
-    public Departments(int id, string name, int locationId, int managerId)
+    public Department(int id, string name, int locationId, int managerId)
     {
         Id = id;
         Name = name;

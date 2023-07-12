@@ -1,8 +1,8 @@
 ﻿namespace DatabaseConectivity.Object;
 
-public class Countries
+public class Country
 {
-    public Countries(string id, string name, int regionId)
+    public Country(string id, string name, int regionId)
     {
         Id = id;
         Name = name;

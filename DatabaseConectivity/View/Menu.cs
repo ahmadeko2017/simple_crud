@@ -84,6 +84,7 @@ public class Menu
                     break;
             }
         }
+        // ReSharper disable once FunctionNeverReturns
     }
 
     public string ListTable()
@@ -275,118 +276,249 @@ public class Menu
         switch (table)
                 {
                     case "countries" :
-                        var countries = SimpleCrud.GetTableById<Countries, String>(table,
+                        var countrie = SimpleCrud.GetTableById<Country, String>(table,
                             GetInput.GetString("id : "));
                         Console.Clear();
                         Console.WriteLine("========================");
                         Console.WriteLine("   SELECTED COUNTRY");
                         Console.WriteLine("========================");
-                        Console.WriteLine($" id = {countries.Id}");
-                        Console.WriteLine($" name = {countries.Name}");
-                        Console.WriteLine($" region_id = {countries.RegionId}");
+                        Console.WriteLine($" id        = {countrie.Id}");
+                        Console.WriteLine($" name      = {countrie.Name}");
+                        Console.WriteLine($" region_id = {countrie.RegionId}");
                         Console.WriteLine("========================");
                         Console.Write("\nPress Enter to Continue . . .");
                         Console.ReadKey();
                         break;
                     case "department" :
-                        var departments = SimpleCrud.GetTableById<Departments, int>(table,
+                        var department = SimpleCrud.GetTableById<Department, int>(table,
                             GetInput.GetInt("id : "));
                         Console.Clear();
                         Console.WriteLine("========================");
                         Console.WriteLine("  SELECTED DEPARTMENT");
                         Console.WriteLine("========================");
-                        Console.WriteLine($" id          = {departments.Id}");
-                        Console.WriteLine($" name        = {departments.Name}");
-                        Console.WriteLine($" Location_id = {departments.LocationId}");
-                        Console.WriteLine($" manager_id  = {departments.ManagerId}");
+                        Console.WriteLine($" id          = {department.Id}");
+                        Console.WriteLine($" name        = {department.Name}");
+                        Console.WriteLine($" Location_id = {department.LocationId}");
+                        Console.WriteLine($" manager_id  = {department.ManagerId}");
                         Console.WriteLine("========================");
                         Console.Write("\nPress Enter to Continue . . .");
                         Console.ReadKey();
                         break;
                     case "employees" :
-                        var employees = SimpleCrud.GetTableById<Employees, int>(table,
+                        var employee = SimpleCrud.GetTableById<Employee, int>(table,
                             GetInput.GetInt("id : "));
                         Console.Clear();
                         Console.WriteLine("========================");
                         Console.WriteLine("   SELECTED EMPLOYEES");
                         Console.WriteLine("========================");
-                        Console.WriteLine($" id             = {employees.Id}");
-                        Console.WriteLine($" first_name     = {employees.FirsName}");
-                        Console.WriteLine($" last_name      = {employees.LastName}");
-                        Console.WriteLine($" email          = {employees.Email}");
-                        Console.WriteLine($" phone_number   = {employees.PhoneNumber}");
-                        Console.WriteLine($" hire_date      = {employees.HireDate}");
-                        Console.WriteLine($" salary         = {employees.Salary}");
-                        Console.WriteLine($" commission_pct = {employees.CommissionPct}");
-                        Console.WriteLine($" manager_id     = {employees.ManagerId}");
-                        Console.WriteLine($" job_id         = {employees.JobId}");
-                        Console.WriteLine($" department_id  = {employees.DepartmentId}");
+                        Console.WriteLine($" id             = {employee.Id}");
+                        Console.WriteLine($" first_name     = {employee.FirsName}");
+                        Console.WriteLine($" last_name      = {employee.LastName}");
+                        Console.WriteLine($" email          = {employee.Email}");
+                        Console.WriteLine($" phone_number   = {employee.PhoneNumber}");
+                        Console.WriteLine($" hire_date      = {employee.HireDate}");
+                        Console.WriteLine($" salary         = {employee.Salary}");
+                        Console.WriteLine($" commission_pct = {employee.CommissionPct}");
+                        Console.WriteLine($" manager_id     = {employee.ManagerId}");
+                        Console.WriteLine($" job_id         = {employee.JobId}");
+                        Console.WriteLine($" department_id  = {employee.DepartmentId}");
                         Console.WriteLine("========================");
                         Console.Write("\nPress Enter to Continue . . .");
                         Console.ReadKey();
                         break;
                     case "histories" :
-                        var histories = SimpleCrud.GetTableById<Histories, int>(table,
+                        var historie = SimpleCrud.GetTableById<History, int>(table,
                             startDate:GetInput.GetDateTime("start_date : "),
                             employeeId:GetInput.GetInt("employee_id : "));
                         Console.Clear();
                         Console.WriteLine("========================");
                         Console.WriteLine("    SELECTED HISTORY");
                         Console.WriteLine("========================");
-                        Console.WriteLine($" start_date    = {histories.StartDate}");
-                        Console.WriteLine($" employee_id   = {histories.EmployeeId}");
-                        Console.WriteLine($" end_date      = {histories.EndDate}");
-                        Console.WriteLine($" department_id = {histories.DepartmentId}");
-                        Console.WriteLine($" job_id        = {histories.JobId}");
+                        Console.WriteLine($" start_date    = {historie.StartDate}");
+                        Console.WriteLine($" employee_id   = {historie.EmployeeId}");
+                        Console.WriteLine($" end_date      = {historie.EndDate}");
+                        Console.WriteLine($" department_id = {historie.DepartmentId}");
+                        Console.WriteLine($" job_id        = {historie.JobId}");
                         Console.WriteLine("========================");
                         Console.Write("\nPress Enter to Continue . . .");
                         Console.ReadKey();
                         break;
                     case "jobs" :
-                        var jobs = SimpleCrud.GetTableById<Jobs, String>(table,
+                        var job = SimpleCrud.GetTableById<Job, String>(table,
                             GetInput.GetString("id : "));
                         Console.Clear();
                         Console.WriteLine("========================");
                         Console.WriteLine("     SELECTED JOB");
                         Console.WriteLine("========================");
-                        Console.WriteLine($" id         = {jobs.Id}");
-                        Console.WriteLine($" title      = {jobs.Title}");
-                        Console.WriteLine($" min_salary = {jobs.MinSalary}");
-                        Console.WriteLine($" max_salary = {jobs.MaxSalary}");
+                        Console.WriteLine($" id         = {job.Id}");
+                        Console.WriteLine($" title      = {job.Title}");
+                        Console.WriteLine($" min_salary = {job.MinSalary}");
+                        Console.WriteLine($" max_salary = {job.MaxSalary}");
                         Console.WriteLine("========================");
                         Console.Write("\nPress Enter to Continue . . .");
                         Console.ReadKey();
                         break;
                     case "locations" :
-                        var locations = SimpleCrud.GetTableById<Locations, int>(table,
+                        var location = SimpleCrud.GetTableById<Location, int>(table,
                             GetInput.GetInt("id : "));
                         Console.Clear();
                         Console.WriteLine("========================");
                         Console.WriteLine("   SELECTED LOCATIONS");
                         Console.WriteLine("========================");
-                        Console.WriteLine($" id             = {locations.Id}");
-                        Console.WriteLine($" street_address = {locations.StreetAddress}");
-                        Console.WriteLine($" postal_code    = {locations.PostalCode}");
-                        Console.WriteLine($" city           = {locations.City}");
-                        Console.WriteLine($" state_province = {locations.StateProvince}");
-                        Console.WriteLine($" country_id     = {locations.CountryId}");
+                        Console.WriteLine($" id             = {location.Id}");
+                        Console.WriteLine($" street_address = {location.StreetAddress}");
+                        Console.WriteLine($" postal_code    = {location.PostalCode}");
+                        Console.WriteLine($" city           = {location.City}");
+                        Console.WriteLine($" state_province = {location.StateProvince}");
+                        Console.WriteLine($" country_id     = {location.CountryId}");
                         Console.WriteLine("========================");
                         Console.Write("\nPress Enter to Continue . . .");
                         break;
                     case "regions" :
-                        var regions = SimpleCrud.GetTableById<Regions, int>(table,
+                        var region = SimpleCrud.GetTableById<Region, int>(table,
                             GetInput.GetInt("id : "));
                         Console.Clear();
                         Console.WriteLine("========================");
                         Console.WriteLine("    SELECTED REGION");
                         Console.WriteLine("========================");
-                        Console.WriteLine($" id = {regions.Id}");
-                        Console.WriteLine($" name = {regions.Name}");
+                        Console.WriteLine($" id = {region.Id}");
+                        Console.WriteLine($" name = {region.Name}");
                         Console.WriteLine("========================");
                         Console.Write("\nPress Enter to Continue . . .");
                         Console.ReadKey();
                         break;
                 }
     }
-    private void GetAllData(string table){}
+
+    private void GetAllData(string table)
+    {
+        switch (table)
+                {
+                    case "countries" :
+                        var countries = SimpleCrud.GetTable<Country>(table);
+                        Console.Clear();
+                        Console.WriteLine("========================");
+                        Console.WriteLine("   SELECTED COUNTRY");
+                        Console.WriteLine("========================");
+                        foreach (var country in countries)
+                        {
+                            Console.WriteLine($" id        = {country.Id}");
+                            Console.WriteLine($" name      = {country.Name}");
+                            Console.WriteLine($" region_id = {country.RegionId}");
+                            Console.WriteLine("========================");
+                        }
+                        Console.Write("\nPress Enter to Continue . . .");
+                        Console.ReadKey();
+                        break;
+                    case "department" :
+                        var departments = SimpleCrud.GetTable<Department>(table);
+                        Console.Clear();
+                        Console.WriteLine("========================");
+                        Console.WriteLine("  SELECTED DEPARTMENT");
+                        Console.WriteLine("========================");
+                        foreach (var department in departments)
+                        {
+                            Console.WriteLine($" id          = {department.Id}");
+                            Console.WriteLine($" name        = {department.Name}");
+                            Console.WriteLine($" Location_id = {department.LocationId}");
+                            Console.WriteLine($" manager_id  = {department.ManagerId}");
+                            Console.WriteLine("========================");    
+                        }
+                        Console.Write("\nPress Enter to Continue . . .");
+                        Console.ReadKey();
+                        break;
+                    case "employees" :
+                        var employees = SimpleCrud.GetTable<Employee>(table);
+                        Console.Clear();
+                        Console.WriteLine("========================");
+                        Console.WriteLine("   SELECTED EMPLOYEES");
+                        Console.WriteLine("========================");
+                        foreach (var employee in employees)
+                        {
+                            Console.WriteLine($" id             = {employee.Id}");
+                            Console.WriteLine($" first_name     = {employee.FirsName}");
+                            Console.WriteLine($" last_name      = {employee.LastName}");
+                            Console.WriteLine($" email          = {employee.Email}");
+                            Console.WriteLine($" phone_number   = {employee.PhoneNumber}");
+                            Console.WriteLine($" hire_date      = {employee.HireDate}");
+                            Console.WriteLine($" salary         = {employee.Salary}");
+                            Console.WriteLine($" commission_pct = {employee.CommissionPct}");
+                            Console.WriteLine($" manager_id     = {employee.ManagerId}");
+                            Console.WriteLine($" job_id         = {employee.JobId}");
+                            Console.WriteLine($" department_id  = {employee.DepartmentId}");
+                            Console.WriteLine("========================");    
+                        }
+                        Console.Write("\nPress Enter to Continue . . .");
+                        Console.ReadKey();
+                        break;
+                    case "histories" :
+                        var histories = SimpleCrud.GetTable<History>(table);
+                        Console.Clear();
+                        Console.WriteLine("========================");
+                        Console.WriteLine("    SELECTED HISTORY");
+                        Console.WriteLine("========================");
+                        foreach (var history in histories)
+                        {
+                            Console.WriteLine($" start_date    = {history.StartDate}");
+                            Console.WriteLine($" employee_id   = {history.EmployeeId}");
+                            Console.WriteLine($" end_date      = {history.EndDate}");
+                            Console.WriteLine($" department_id = {history.DepartmentId}");
+                            Console.WriteLine($" job_id        = {history.JobId}");
+                            Console.WriteLine("========================");
+                        }
+                        Console.Write("\nPress Enter to Continue . . .");
+                        Console.ReadKey();
+                        break;
+                    case "jobs" :
+                        var jobs = SimpleCrud.GetTable<Job>(table);
+                        Console.Clear();
+                        Console.WriteLine("========================");
+                        Console.WriteLine("     SELECTED JOB");
+                        Console.WriteLine("========================");
+                        foreach (var job in jobs)
+                        {
+                            Console.WriteLine($" id         = {job.Id}");
+                            Console.WriteLine($" title      = {job.Title}");
+                            Console.WriteLine($" min_salary = {job.MinSalary}");
+                            Console.WriteLine($" max_salary = {job.MaxSalary}");
+                            Console.WriteLine("========================");
+                        }
+                        Console.Write("\nPress Enter to Continue . . .");
+                        Console.ReadKey();
+                        break;
+                    case "locations" :
+                        var locations = SimpleCrud.GetTable<Location>(table);
+                        Console.Clear();
+                        Console.WriteLine("========================");
+                        Console.WriteLine("   SELECTED LOCATIONS");
+                        Console.WriteLine("========================");
+                        foreach (var location in locations)
+                        {
+                            Console.WriteLine($" id             = {location.Id}");
+                            Console.WriteLine($" street_address = {location.StreetAddress}");
+                            Console.WriteLine($" postal_code    = {location.PostalCode}");
+                            Console.WriteLine($" city           = {location.City}");
+                            Console.WriteLine($" state_province = {location.StateProvince}");
+                            Console.WriteLine($" country_id     = {location.CountryId}");
+                            Console.WriteLine("========================");    
+                        }
+                        Console.Write("\nPress Enter to Continue . . .");
+                        break;
+                    case "regions" :
+                        var regions = SimpleCrud.GetTable<Region>(table);
+                        Console.Clear();
+                        Console.WriteLine("========================");
+                        Console.WriteLine("    SELECTED REGION");
+                        Console.WriteLine("========================");
+                        foreach (var region in regions)
+                        {
+                            Console.WriteLine($" id = {region.Id}");
+                            Console.WriteLine($" name = {region.Name}");
+                            Console.WriteLine("========================");    
+                        }
+                        Console.Write("\nPress Enter to Continue . . .");
+                        Console.ReadKey();
+                        break;
+                }
+    }
 }

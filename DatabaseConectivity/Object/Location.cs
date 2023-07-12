@@ -1,8 +1,8 @@
 ﻿namespace DatabaseConectivity.Object;
 
-public class Locations
+public class Location
 {
-    public Locations(int id, string? streetAddress, string? postalCode, string city, string? stateProvince, string countryId)
+    public Location(int id, string? streetAddress, string? postalCode, string city, string? stateProvince, string countryId)
     {
         Id = id;
         StreetAddress = streetAddress;

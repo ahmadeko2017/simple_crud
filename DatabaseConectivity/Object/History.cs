@@ -1,8 +1,8 @@
 ﻿namespace DatabaseConectivity.Object;
 
-public class Histories
+public class History
 {
-    public Histories(DateTime startDate, int employeeId, DateTime? endDate, int departmentId, string jobId)
+    public History(DateTime startDate, int employeeId, DateTime? endDate, int departmentId, string jobId)
     {
         StartDate = startDate;
         EmployeeId = employeeId;

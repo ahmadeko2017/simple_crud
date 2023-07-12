@@ -1,8 +1,8 @@
 ﻿namespace DatabaseConectivity.Object;
 
-public class Jobs
+public class Job
 {
-    public Jobs(string id, string title, int? minSalary, int? maxSalary)
+    public Job(string id, string title, int? minSalary, int? maxSalary)
     {
         Id = id;
         Title = title;

@@ -1,8 +1,8 @@
 ﻿namespace DatabaseConectivity.Object;
 
-public class Employees
+public class Employee
 {
-    public Employees(int id, string firsName, string? lastName, string email, string? phoneNumber, DateTime hireDate, int? salary, decimal? commissionPct, int managerId, string jobId, int departmentId)
+    public Employee(int id, string firsName, string? lastName, string email, string? phoneNumber, DateTime hireDate, int? salary, decimal? commissionPct, int managerId, string jobId, int departmentId)
     {
         Id = id;
         FirsName = firsName;
