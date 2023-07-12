@@ -1,4 +1,6 @@
-﻿using DatabaseConectivity.DataAccessObject;
+﻿using System.Diagnostics;
+using DatabaseConectivity.DataAccessObject;
+using DatabaseConectivity.Utility;
 
 namespace DatabaseConectivity.View;
 
@@ -136,9 +138,71 @@ public class Menu
             }
         }
     }
-    public void InsertTable(string table){}
-    public void UpdateTable(string table){}
-    public void DeleteTable(string table){}
-    public void GetDataById(string table){}
-    public void GetAllData(string table){}
+
+    private void InsertTable(string table)
+    {
+        switch (table)
+                {
+                    case "countries" :
+                        SimpleCrud.InsertTable(table, 
+                            idStr:GetInput.GetString("id : "),  
+                            name:GetInput.GetString("name : "), 
+                            regionId:GetInput.GetInt("region_id : "));
+                        break;
+                    case "department" :
+                        SimpleCrud.InsertTable(table, 
+                            idInt:GetInput.GetInt("id : "),
+                            name:GetInput.GetString("name : "),
+                            locationId:GetInput.GetInt("location_id : "),
+                            managerId:GetInput.GetInt("manager_id : "));
+                        break;
+                    case "employees" :
+                        SimpleCrud.InsertTable(table,
+                            idInt:GetInput.GetInt("id : "),
+                            firstName:GetInput.GetString("first_name : "),
+                            lastName:GetInput.GetString("last_name : "),
+                            email:GetInput.GetString("email : "),
+                            phoneNumber:GetInput.GetString("phone_number : "),
+                            hireDate:GetInput.GetDateTime("hire_date : "),
+                            salary:GetInput.GetInt("salary : "),
+                            commissionPct:GetInput.GetDecimal("commission_pct : "),
+                            managerId:GetInput.GetInt("manager_id : "),
+                            jobId:GetInput.GetString("job_id : "),
+                            departmentId:GetInput.GetInt("department_id : "));
+                        break;
+                    case "histories" :
+                        SimpleCrud.InsertTable(table,
+                            startDate:GetInput.GetDateTime("start_date : "),
+                            employeeId:GetInput.GetInt("employee_id : "),
+                            endDate:GetInput.GetDateTime("end_date : "),
+                            departmentId:GetInput.GetInt("department_id : "),
+                            jobId:GetInput.GetString("job_id : "));
+                        break;
+                    case "jobs" :
+                        SimpleCrud.InsertTable(table,
+                            idStr:GetInput.GetString("id : "),
+                            title:GetInput.GetString("title : "),
+                            minSalary:GetInput.GetInt("min_salary : "),
+                            maxSalary:GetInput.GetInt("max_salary : "));
+                        break;
+                    case "locations" :
+                        SimpleCrud.InsertTable(table,
+                            idInt:GetInput.GetInt("id : "),
+                            streetAddress:GetInput.GetString("street_address : "),
+                            postalCode:GetInput.GetString("postal_code : "),
+                            city:GetInput.GetString("city : "),
+                            stateProvince:GetInput.GetString("state_province : "),
+                            countryId:GetInput.GetString("country_id : "));
+                        break;
+                    case "regions" :
+                        SimpleCrud.InsertTable(table,
+                            name:GetInput.GetString("name : "));
+                        break;
+                }
+    }
+
+    private void UpdateTable(string table){}
+    private void DeleteTable(string table){}
+    private void GetDataById(string table){}
+    private void GetAllData(string table){}
 }
