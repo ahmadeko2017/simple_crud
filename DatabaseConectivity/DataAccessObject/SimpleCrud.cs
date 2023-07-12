@@ -474,7 +474,7 @@ public static class SimpleCrud
     }
     
     public static void UpdateTable(string table, string? idStr = default, int idInt = default, string? name = default, 
-        string? regionId = default, int locationId = default, int managerId = default, string? firstName = default, string? lastName = default, string? email = default, string? phoneNumber = default, DateTime hireDate = default, int salary = default, decimal commissionPct = default, string? jobId = default, int departmentId = default, DateTime startDate = default, int employeeId = default, DateTime endDate = default, string? title = default, int minSalary = default, int maxSalary = default, string? streetAddress = default, string? postalCode = default, string? city = default, string? stateProvince = default, string? countryId = default)
+        int regionId = default, int locationId = default, int managerId = default, string? firstName = default, string? lastName = default, string? email = default, string? phoneNumber = default, DateTime hireDate = default, int salary = default, decimal commissionPct = default, string? jobId = default, int departmentId = default, DateTime startDate = default, int employeeId = default, DateTime endDate = default, string? title = default, int minSalary = default, int maxSalary = default, string? streetAddress = default, string? postalCode = default, string? city = default, string? stateProvince = default, string? countryId = default)
     {
         var connection = new SqlConnection(_connectionString);
 
