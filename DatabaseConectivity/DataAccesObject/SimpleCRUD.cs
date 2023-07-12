@@ -812,27 +812,50 @@ public static class SimpleCrud
             Console.WriteLine("Error connecting to database.");
         }
     }
-    public static void DeleteTable(string table, int id)
+    public static void DeleteTable(string table, int id = default, DateTime startDate = default, int employeeId = default)
     {
         var connection = new SqlConnection(_connectionString);
 
         SqlCommand sqlCommand = new SqlCommand();
         sqlCommand.Connection = connection;
-        sqlCommand.CommandText = $"DELETE {table} WHERE id = (@id)";
-        
+
         connection.Open();
         SqlTransaction transaction = connection.BeginTransaction();
         sqlCommand.Transaction = transaction;
 
         try
         {
-            SqlParameter pId = new SqlParameter
+            switch (table)
             {
-                ParameterName = "@id",
-                SqlDbType = SqlDbType.Int,
-                Value = id
-            };
-            sqlCommand.Parameters.Add(pId);
+                case "histories" :
+                    sqlCommand.CommandText = $"DELETE {table} WHERE start_date = (@startDate) AND employee_id = (@employeeId)";
+                    SqlParameter pStartDate = new SqlParameter
+                    {
+                        ParameterName = "@startDate",
+                        SqlDbType = SqlDbType.DateTime,
+                        Value = startDate
+                    };
+                    sqlCommand.Parameters.Add(pStartDate);
+                    
+                    SqlParameter pEmployeeId = new SqlParameter
+                    {
+                        ParameterName = "@employeeId",
+                        SqlDbType = SqlDbType.Int,
+                        Value = employeeId
+                    };
+                    sqlCommand.Parameters.Add(pEmployeeId);
+                    break;
+                default:
+                    sqlCommand.CommandText = $"DELETE {table} WHERE id = (@id)";
+                    SqlParameter pId = new SqlParameter
+                    {
+                        ParameterName = "@id",
+                        SqlDbType = SqlDbType.Int,
+                        Value = id
+                    };
+                    sqlCommand.Parameters.Add(pId);
+                    break;
+            }
             
             int result = sqlCommand.ExecuteNonQuery();
             if (result > 0)
@@ -853,46 +876,157 @@ public static class SimpleCrud
             Console.WriteLine("Error connecting to database.");
         }
     }
-    public static void GetTableById(string table, int id)
+    public static T GetTableById<T>(string table, int idTable = default, DateTime startDate = default, int employeeId = default)
     {
         var connection = new SqlConnection(_connectionString);
 
         SqlCommand sqlCommand = new SqlCommand();
         sqlCommand.Connection = connection;
-        sqlCommand.CommandText = $"SELECT * FROM {table} WHERE id = (@id)";
 
         try
         {
-            SqlParameter pId = new SqlParameter
+            switch (table)
             {
-                ParameterName = "@id",
-                SqlDbType = SqlDbType.Int,
-                Value = id
-            };
-            sqlCommand.Parameters.Add(pId);
+                case "histories" :
+                    sqlCommand.CommandText = $"SELECT * FROM {table} WHERE start_date = (@startDate) AND employee_id = (@employeeId)";
+                    SqlParameter pStartDate = new SqlParameter
+                    {
+                        ParameterName = "@startDate",
+                        SqlDbType = SqlDbType.DateTime,
+                        Value = startDate
+                    };
+                    sqlCommand.Parameters.Add(pStartDate);
+                    
+                    SqlParameter pEmployeeId = new SqlParameter
+                    {
+                        ParameterName = "@employeeId",
+                        SqlDbType = SqlDbType.Int,
+                        Value = employeeId
+                    };
+                    sqlCommand.Parameters.Add(pEmployeeId);
+                    break;
+                default:
+                    sqlCommand.CommandText = $"SELECT * FROM {table} WHERE id = (@id)";
+                    SqlParameter pId = new SqlParameter
+                    {
+                        ParameterName = "@id",
+                        SqlDbType = SqlDbType.Int,
+                        Value = idTable
+                    };
+                    sqlCommand.Parameters.Add(pId);
+                    break;
+            }
             
             connection.Open();
             using SqlDataReader reader = sqlCommand.ExecuteReader();
 
             if (reader.HasRows)
             {
-                while (reader.Read())
+                // Console.WriteLine("Reader berjalan");
+                switch (table)
                 {
-                    Console.WriteLine("Id: " + reader.GetInt32(0));
-                    Console.WriteLine("Name: " + reader.GetString(1));
+                    case "countries" :
+                        while (reader.Read())
+                        {
+                            
+                            var id = reader.GetString(0);
+                            var name = reader.GetString(1);
+                            var regionId = reader.GetInt32(2);
+                            var country = new Countries(id, name, regionId);
+                            return (T) Convert.ChangeType(country, typeof(T));
+                        }
+                        break;
+
+                    case "department" :
+                        while (reader.Read())
+                        {
+                            var id = reader.GetInt32(0);
+                            var name = reader.GetString(1);
+                            var locationId = reader.GetInt32(2);
+                            var managerId = reader.GetInt32(3);
+                            var department = new Departments(id, name, locationId, managerId);
+                            return (T) Convert.ChangeType(department, typeof(T));
+                        }
+                        break;
+                    case "employees" :
+                        while (reader.Read())
+                        {
+                            var id = reader.GetInt32(0);
+                            var firstName = reader.GetString(1);
+                            var lastName = reader.GetString(2);
+                            var email = reader.GetString(3);
+                            var phoneNumber = reader.GetString(4);
+                            var hireDate = reader.GetDateTime(5);
+                            var salary = reader.GetInt32(6);
+                            var commissionPct = reader.GetDecimal(7);
+                            var managerId = reader.GetInt32(8);
+                            var jobId = reader.GetString(9);
+                            var departmentId = reader.GetInt32(10);
+                            var employee = new Employees(id, firstName, lastName, email, phoneNumber, hireDate, salary, commissionPct, managerId, jobId, departmentId);
+                            return (T) Convert.ChangeType(employee, typeof(List<T>));
+                        }
+                        break;
+                    case "histories" :
+                        while (reader.Read())
+                        {
+                            startDate = reader.GetDateTime(0);
+                            employeeId = reader.GetInt32(1);
+                            var endDate = reader.GetDateTime(2);
+                            var departmentId = reader.GetInt32(3);
+                            var jobId = reader.GetString(4);
+                            var history = new Histories(startDate, employeeId, endDate, departmentId, jobId);
+                            return (T) Convert.ChangeType(history, typeof(T));
+                        }
+                        break;
+                    case "jobs" :
+                        while (reader.Read())
+                        {
+                            var id = reader.GetString(0);
+                            var title = reader.GetString(1);
+                            var minSalary = reader.GetInt32(2);
+                            var maxSalary = reader.GetInt32(3);
+                            var job = new Jobs(id, title, minSalary, maxSalary);
+                            return (T) Convert.ChangeType(job, typeof(T));
+                        }
+                        break;
+                    case "locations" :
+                        while (reader.Read())
+                        {
+                            var id = reader.GetInt32(0);
+                            var streetAddress = reader.GetString(1);
+                            var postalCode = reader.GetString(2);
+                            var city = reader.GetString(3);
+                            var stateProvince = reader.GetString(4);
+                            var countryId = reader.GetString(5);
+                            var location = new Locations(id, streetAddress, postalCode, city, stateProvince, countryId);
+                            return (T) Convert.ChangeType(location, typeof(T));
+                        }
+                        break;
+                    case "regions" :
+                        while (reader.Read())
+                        {
+                            var id = reader.GetInt32(0);
+                            var name = reader.GetString(1);
+                            var region = new Regions(id, name);
+                            return (T) Convert.ChangeType(region, typeof(T));
+                        }
+                        break;
                 }
+                
             }
             else
             {
-                Console.WriteLine("No regions found.");
+                Console.WriteLine("No table found.");
             }
-
             reader.Close();
             connection.Close();
         }
-        catch
+        catch (Exception e)
         {
+            Console.WriteLine($"Error : {e}");
             Console.WriteLine("Error connecting to database.");
         }
+
+        return default(T);
     }
 }
