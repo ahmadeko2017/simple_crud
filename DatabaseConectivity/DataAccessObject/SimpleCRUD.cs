@@ -2,7 +2,7 @@
 using DatabaseConectivity.Object;
 using Microsoft.Data.SqlClient;
 
-namespace DatabaseConectivity.DataAccesObject;
+namespace DatabaseConectivity.DataAccessObject;
 
 public static class SimpleCrud
 {
@@ -28,7 +28,6 @@ public static class SimpleCrud
 
             if (reader.HasRows)
             {
-                // Console.WriteLine("Reader berjalan");
                 switch (table)
                 {
                     case "countries" :
@@ -66,11 +65,11 @@ public static class SimpleCrud
                             var phoneNumber = reader.GetString(4);
                             var hireDate = reader.GetDateTime(5);
                             var salary = reader.GetInt32(6);
-                            var commisionPct = reader.GetDecimal(7);
+                            var commissionPct = reader.GetDecimal(7);
                             var managerId = reader.GetInt32(8);
                             var jobId = reader.GetString(9);
                             var departmentId = reader.GetInt32(10);
-                            var employee = new Employees(id, firstName, lastName, email, phoneNumber, hireDate, salary, commisionPct, managerId, jobId, departmentId);
+                            var employee = new Employees(id, firstName, lastName, email, phoneNumber, hireDate, salary, commissionPct, managerId, jobId, departmentId);
                             employees.Add(employee);
                         }
                         return (List<T>) Convert.ChangeType(employees, typeof(List<T>));
@@ -922,7 +921,6 @@ public static class SimpleCrud
 
             if (reader.HasRows)
             {
-                // Console.WriteLine("Reader berjalan");
                 switch (table)
                 {
                     case "countries" :

@@ -1,4 +1,4 @@
-﻿using DatabaseConectivity.DataAccesObject;
+﻿using DatabaseConectivity.DataAccessObject;
 using DatabaseConectivity.Object;
 
 var coutries = SimpleCrud.GetTable<Countries>("countries");
