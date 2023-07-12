@@ -4,7 +4,7 @@ using Microsoft.Data.SqlClient;
 
 namespace DatabaseConectivity.DataAccesObject;
 
-public static class SimpleCRUD
+public static class SimpleCrud
 {
     private static string _server = "localhost";
     private static string _database = "db_test";
@@ -88,31 +88,48 @@ public static class SimpleCRUD
                         }
                         return (List<T>) Convert.ChangeType(histories, typeof(List<T>));
                     case "jobs" :
-                        List<Histories> histories = new List<Histories>();
+                        List<Jobs> jobs = new List<Jobs>();
                         while (reader.Read())
                         {
-                            var startDate = reader.GetDateTime(0);
-                            var employeeId = reader.GetInt32(1);
-                            var endDate = reader.GetDateTime(2);
-                            var departmentId = reader.GetInt32(3);
-                            var jobId = reader.GetString(4);
-                            var history = new Histories(startDate, employeeId, endDate, departmentId, jobId);
-                            histories.Add(history);
+                            var id = reader.GetString(0);
+                            var title = reader.GetString(1);
+                            var minSalary = reader.GetInt32(2);
+                            var maxSalary = reader.GetInt32(3);
+                            var job = new Jobs(id, title, minSalary, maxSalary);
+                            jobs.Add(job);
                         }
-                        return (List<T>) Convert.ChangeType(histories, typeof(List<T>));
-                        break;
+                        return (List<T>) Convert.ChangeType(jobs, typeof(List<T>));
                     case "locations" :
-                        break;
+                        List<Locations> locations = new List<Locations>();
+                        while (reader.Read())
+                        {
+                            var id = reader.GetInt32(0);
+                            var streetAddress = reader.GetString(1);
+                            var postalCode = reader.GetString(2);
+                            var city = reader.GetString(3);
+                            var stateProvince = reader.GetString(4);
+                            var countryId = reader.GetString(5);
+                            var location = new Locations(id, streetAddress, postalCode, city, stateProvince, countryId);
+                            locations.Add(location);
+                        }
+                        return (List<T>) Convert.ChangeType(locations, typeof(List<T>));
                     case "regions" :
-                        break;
+                        List<Regions> regions = new List<Regions>();
+                        while (reader.Read())
+                        {
+                            var id = reader.GetInt32(0);
+                            var name = reader.GetString(1);
+                            var region = new Regions(id, name);
+                            regions.Add(region);
+                        }
+                        return (List<T>) Convert.ChangeType(regions, typeof(List<T>));
                 }
                 
             }
             else
             {
-                Console.WriteLine("No regions found.");
+                Console.WriteLine("No table found.");
             }
-            Console.WriteLine("Connection Estabilished . . .");
             reader.Close();
             connection.Close();
         }
@@ -124,17 +141,17 @@ public static class SimpleCRUD
 
         return null;
     }
-    // INSERT REGION
+    
     public static void InsertTable(string table, string name)
     {
-        var _connection = new SqlConnection(_connectionString);
+        var connection = new SqlConnection(_connectionString);
 
         SqlCommand sqlCommand = new SqlCommand();
-        sqlCommand.Connection = _connection;
+        sqlCommand.Connection = connection;
         sqlCommand.CommandText = $"INSERT INTO {table} VALUES (@name)";
         
-        _connection.Open();
-        SqlTransaction transaction = _connection.BeginTransaction();
+        connection.Open();
+        SqlTransaction transaction = connection.BeginTransaction();
         sqlCommand.Transaction = transaction;
 
         try
@@ -158,7 +175,7 @@ public static class SimpleCRUD
             }
             
             transaction.Commit();
-            _connection.Close();
+            connection.Close();
         }
         catch
         {
@@ -166,16 +183,17 @@ public static class SimpleCRUD
             Console.WriteLine("Error connecting to database.");
         }
     }
+    
     public static void UpdateTable(string table, int id, string name)
     {
-        var _connection = new SqlConnection(_connectionString);
+        var connection = new SqlConnection(_connectionString);
 
         SqlCommand sqlCommand = new SqlCommand();
-        sqlCommand.Connection = _connection;
+        sqlCommand.Connection = connection;
         sqlCommand.CommandText = $"UPDATE {table} SET name = (@name) WHERE id = (@id)";
         
-        _connection.Open();
-        SqlTransaction transaction = _connection.BeginTransaction();
+        connection.Open();
+        SqlTransaction transaction = connection.BeginTransaction();
         sqlCommand.Transaction = transaction;
 
         try
@@ -207,7 +225,7 @@ public static class SimpleCRUD
             }
             
             transaction.Commit();
-            _connection.Close();
+            connection.Close();
         }
         catch
         {
@@ -215,17 +233,16 @@ public static class SimpleCRUD
             Console.WriteLine("Error connecting to database.");
         }
     }
-    
     public static void DeleteTable(string table, int id)
     {
-        var _connection = new SqlConnection(_connectionString);
+        var connection = new SqlConnection(_connectionString);
 
         SqlCommand sqlCommand = new SqlCommand();
-        sqlCommand.Connection = _connection;
+        sqlCommand.Connection = connection;
         sqlCommand.CommandText = $"DELETE {table} WHERE id = (@id)";
         
-        _connection.Open();
-        SqlTransaction transaction = _connection.BeginTransaction();
+        connection.Open();
+        SqlTransaction transaction = connection.BeginTransaction();
         sqlCommand.Transaction = transaction;
 
         try
@@ -249,7 +266,7 @@ public static class SimpleCRUD
             }
             
             transaction.Commit();
-            _connection.Close();
+            connection.Close();
         }
         catch
         {
@@ -257,13 +274,12 @@ public static class SimpleCRUD
             Console.WriteLine("Error connecting to database.");
         }
     }
-    
     public static void GetTableById(string table, int id)
     {
-        var _connection = new SqlConnection(_connectionString);
+        var connection = new SqlConnection(_connectionString);
 
         SqlCommand sqlCommand = new SqlCommand();
-        sqlCommand.Connection = _connection;
+        sqlCommand.Connection = connection;
         sqlCommand.CommandText = $"SELECT * FROM {table} WHERE id = (@id)";
 
         try
@@ -276,7 +292,7 @@ public static class SimpleCRUD
             };
             sqlCommand.Parameters.Add(pId);
             
-            _connection.Open();
+            connection.Open();
             using SqlDataReader reader = sqlCommand.ExecuteReader();
 
             if (reader.HasRows)
@@ -293,7 +309,7 @@ public static class SimpleCRUD
             }
 
             reader.Close();
-            _connection.Close();
+            connection.Close();
         }
         catch
         {
