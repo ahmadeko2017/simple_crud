@@ -875,7 +875,7 @@ public static class SimpleCrud
             Console.WriteLine("Error connecting to database.");
         }
     }
-    public static T GetTableById<T>(string table, int idTable = default, DateTime startDate = default, int employeeId = default)
+    public static T GetTableById<T, TU>(string table, TU idTable = default, DateTime startDate = default, int employeeId = default)
     {
         var connection = new SqlConnection(_connectionString);
 
@@ -909,7 +909,7 @@ public static class SimpleCrud
                     SqlParameter pId = new SqlParameter
                     {
                         ParameterName = "@id",
-                        SqlDbType = SqlDbType.Int,
+                        // SqlDbType = SqlDbType.Int,
                         Value = idTable
                     };
                     sqlCommand.Parameters.Add(pId);

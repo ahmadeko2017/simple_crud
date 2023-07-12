@@ -275,7 +275,8 @@ public class Menu
         switch (table)
                 {
                     case "countries" :
-                        var countries = SimpleCrud.GetTableById<Countries>(table);
+                        var countries = SimpleCrud.GetTableById<Countries, String>(table,
+                            GetInput.GetString("id : "));
                         Console.Clear();
                         Console.WriteLine("========================");
                         Console.WriteLine("   SELECTED COUNTRY");
@@ -284,11 +285,12 @@ public class Menu
                         Console.WriteLine($" name = {countries.Name}");
                         Console.WriteLine($" region_id = {countries.RegionId}");
                         Console.WriteLine("========================");
-                        Console.Write("/nPress Enter to Continue . . .");
+                        Console.Write("\nPress Enter to Continue . . .");
                         Console.ReadKey();
                         break;
                     case "department" :
-                        var departments = SimpleCrud.GetTableById<Departments>(table);
+                        var departments = SimpleCrud.GetTableById<Departments, int>(table,
+                            GetInput.GetInt("id : "));
                         Console.Clear();
                         Console.WriteLine("========================");
                         Console.WriteLine("  SELECTED DEPARTMENT");
@@ -298,11 +300,12 @@ public class Menu
                         Console.WriteLine($" Location_id = {departments.LocationId}");
                         Console.WriteLine($" manager_id  = {departments.ManagerId}");
                         Console.WriteLine("========================");
-                        Console.Write("/nPress Enter to Continue . . .");
+                        Console.Write("\nPress Enter to Continue . . .");
                         Console.ReadKey();
                         break;
                     case "employees" :
-                        var employees = SimpleCrud.GetTableById<Employees>(table);
+                        var employees = SimpleCrud.GetTableById<Employees, int>(table,
+                            GetInput.GetInt("id : "));
                         Console.Clear();
                         Console.WriteLine("========================");
                         Console.WriteLine("   SELECTED EMPLOYEES");
@@ -319,11 +322,13 @@ public class Menu
                         Console.WriteLine($" job_id         = {employees.JobId}");
                         Console.WriteLine($" department_id  = {employees.DepartmentId}");
                         Console.WriteLine("========================");
-                        Console.Write("/nPress Enter to Continue . . .");
+                        Console.Write("\nPress Enter to Continue . . .");
                         Console.ReadKey();
                         break;
                     case "histories" :
-                        var histories = SimpleCrud.GetTableById<Histories>(table);
+                        var histories = SimpleCrud.GetTableById<Histories, int>(table,
+                            startDate:GetInput.GetDateTime("start_date : "),
+                            employeeId:GetInput.GetInt("employee_id : "));
                         Console.Clear();
                         Console.WriteLine("========================");
                         Console.WriteLine("    SELECTED HISTORY");
@@ -334,11 +339,12 @@ public class Menu
                         Console.WriteLine($" department_id = {histories.DepartmentId}");
                         Console.WriteLine($" job_id        = {histories.JobId}");
                         Console.WriteLine("========================");
-                        Console.Write("/nPress Enter to Continue . . .");
+                        Console.Write("\nPress Enter to Continue . . .");
                         Console.ReadKey();
                         break;
                     case "jobs" :
-                        var jobs = SimpleCrud.GetTableById<Jobs>(table);
+                        var jobs = SimpleCrud.GetTableById<Jobs, String>(table,
+                            GetInput.GetString("id : "));
                         Console.Clear();
                         Console.WriteLine("========================");
                         Console.WriteLine("     SELECTED JOB");
@@ -348,11 +354,12 @@ public class Menu
                         Console.WriteLine($" min_salary = {jobs.MinSalary}");
                         Console.WriteLine($" max_salary = {jobs.MaxSalary}");
                         Console.WriteLine("========================");
-                        Console.Write("/nPress Enter to Continue . . .");
+                        Console.Write("\nPress Enter to Continue . . .");
                         Console.ReadKey();
                         break;
                     case "locations" :
-                        var locations = SimpleCrud.GetTableById<Locations>(table);
+                        var locations = SimpleCrud.GetTableById<Locations, int>(table,
+                            GetInput.GetInt("id : "));
                         Console.Clear();
                         Console.WriteLine("========================");
                         Console.WriteLine("   SELECTED LOCATIONS");
@@ -364,10 +371,11 @@ public class Menu
                         Console.WriteLine($" state_province = {locations.StateProvince}");
                         Console.WriteLine($" country_id     = {locations.CountryId}");
                         Console.WriteLine("========================");
-                        Console.Write("/nPress Enter to Continue . . .");
+                        Console.Write("\nPress Enter to Continue . . .");
                         break;
                     case "regions" :
-                        var regions = SimpleCrud.GetTableById<Regions>(table);
+                        var regions = SimpleCrud.GetTableById<Regions, int>(table,
+                            GetInput.GetInt("id : "));
                         Console.Clear();
                         Console.WriteLine("========================");
                         Console.WriteLine("    SELECTED REGION");
@@ -375,7 +383,7 @@ public class Menu
                         Console.WriteLine($" id = {regions.Id}");
                         Console.WriteLine($" name = {regions.Name}");
                         Console.WriteLine("========================");
-                        Console.Write("/nPress Enter to Continue . . .");
+                        Console.Write("\nPress Enter to Continue . . .");
                         Console.ReadKey();
                         break;
                 }

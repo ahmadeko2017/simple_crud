@@ -1,10 +1,6 @@
 ﻿using DatabaseConectivity.DataAccessObject;
 using DatabaseConectivity.Object;
+using DatabaseConectivity.View;
 
-var coutries = SimpleCrud.GetTable<Countries>("countries");
-foreach (var country in coutries)
-{
-    Console.Write(country.Id + ", ");
-    Console.Write(country.Name + ", ");
-    Console.WriteLine(country.RegionId);
-}
+var menu = new Menu();
+menu.App();
