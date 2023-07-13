@@ -64,7 +64,7 @@ public static class SimpleCrud
                             var email = reader.GetString(3);
                             var phoneNumber = reader.IsDBNull(4) ? default : reader.GetString(4);
                             var hireDate = reader.GetDateTime(5);
-                            int? salary = reader.IsDBNull(3) ? default : reader.GetInt32(6);
+                            int? salary = reader.IsDBNull(6) ? default : reader.GetInt32(6);
                             decimal? commissionPct = reader.IsDBNull(7) ? default :  reader.GetDecimal(7);
                             var managerId = reader.GetInt32(8);
                             var jobId = reader.GetString(9);

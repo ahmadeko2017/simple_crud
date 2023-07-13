@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseConectivity", "DatabaseConectivity\DatabaseConectivity.csproj", "{D3716895-DBEB-4ABA-9A21-EEA1D5BA5F28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC Implementation", "MVC Implementation\MVC Implementation.csproj", "{B62B8916-FD83-4630-935D-6893A32A11A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{D3716895-DBEB-4ABA-9A21-EEA1D5BA5F28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3716895-DBEB-4ABA-9A21-EEA1D5BA5F28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3716895-DBEB-4ABA-9A21-EEA1D5BA5F28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B62B8916-FD83-4630-935D-6893A32A11A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B62B8916-FD83-4630-935D-6893A32A11A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B62B8916-FD83-4630-935D-6893A32A11A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B62B8916-FD83-4630-935D-6893A32A11A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
