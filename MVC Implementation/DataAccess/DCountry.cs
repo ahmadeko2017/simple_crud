@@ -6,7 +6,7 @@ namespace MVC_Implementation.DataAccess;
 
 public class DCountry
 {
-    public Country SelectById(string id)
+    public Country GetById(string id)
     {
         Country result = new Country("", "", 0);
         var conStr = Connection.Get();
@@ -40,7 +40,7 @@ public class DCountry
         return result;
     }
 
-    public List<Country> SelectAll()
+    public List<Country> GetAll()
     {
         List<Country> results = new List<Country>();
         var conStr = Connection.Get();

@@ -6,7 +6,7 @@ namespace MVC_Implementation.DataAccess;
 
 public class DRegion
 {
-    public Region SelectById(int id)
+    public Region GetById(int id)
     {
         Region result = new Region(0, "");
         var conStr = Connection.Get();
@@ -26,11 +26,15 @@ public class DRegion
                     result = new Region(reader.GetInt32("id"), reader.GetString("name"));
                 }
             }
+            else
+            {
+                result = new Region(0, "failure");
+            }
             reader.Close();
         }
         catch
         {
-            // ignored
+            result = new Region(0, "error");
         }
         finally
         {
@@ -39,7 +43,7 @@ public class DRegion
         return result;
     }
 
-    public List<Region> SelectAll()
+    public List<Region> GetAll()
     {
         List<Region> results = new List<Region>();
         var conStr = Connection.Get();

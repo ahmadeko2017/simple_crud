@@ -6,7 +6,7 @@ namespace MVC_Implementation.DataAccess;
 
 public class DLocation
 {
-    public Location SelectById(int id)
+    public Location GetById(int id)
     {
         Location result = new Location(0, "", "", "", "", "");
         var conStr = Connection.Get();
@@ -26,11 +26,15 @@ public class DLocation
                     result = new Location(reader.GetInt32("id"), reader.GetString("street_address"), reader.GetString("postal_code"), reader.GetString("city"), reader.GetString("state_province"), reader.GetString("country_id"));
                 }
             }
+            else
+            {
+                result = new Location(0, "failure", "", "", "", "");
+            }
             reader.Close();
         }
         catch
         {
-            // ignored
+            result = new Location(0, "error", "", "", "", "");
         }
         finally
         {
@@ -39,7 +43,7 @@ public class DLocation
         return result;
     }
 
-    public List<Location> SelectAll()
+    public List<Location> GetAll()
     {
         List<Location> results = new List<Location>();
         var conStr = Connection.Get();

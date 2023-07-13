@@ -6,7 +6,7 @@ namespace MVC_Implementation.DataAccess;
 
 public class DDepartment
 {
-    public Department SelectById(int id)
+    public Department GetById(int id)
     {
         Department result = new Department(0, "", 0, 0);
         var conStr = Connection.Get();
@@ -39,7 +39,7 @@ public class DDepartment
         return result;
     }
 
-    public List<Department> SelectAll()
+    public List<Department> GetAll()
     {
         List<Department> results = new List<Department>();
         var conStr = Connection.Get();

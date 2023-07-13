@@ -6,7 +6,7 @@ namespace MVC_Implementation.DataAccess;
 
 public class DJob
 {
-    public Job SelectById(string id)
+    public Job GetById(string id)
     {
         Job result = new Job("", "", 0, 0);
         var conStr = Connection.Get();
@@ -26,11 +26,15 @@ public class DJob
                     result = new Job(reader.GetString("id"), reader.GetString("title"), reader.GetInt32("min_salary"), reader.GetInt32("max_salary"));
                 }
             }
+            else
+            {
+                result = new Job("", "failure", 0, 0);
+            }
             reader.Close();
         }
         catch
         {
-            // ignored
+            result = new Job("", "error", 0, 0);
         }
         finally
         {
@@ -39,7 +43,7 @@ public class DJob
         return result;
     }
 
-    public List<Job> SelectAll()
+    public List<Job> GetAll()
     {
         List<Job> results = new List<Job>();
         var conStr = Connection.Get();

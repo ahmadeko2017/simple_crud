@@ -6,7 +6,7 @@ namespace MVC_Implementation.DataAccess;
 
 public class DEmployee
 {
-    public Employee SelectById(int id)
+    public Employee GetById(int id)
     {
         Employee result = new Employee(0, "", "", "", "", DateTime.Now, 0, 0, 0, "", 0);
         var conStr = Connection.Get();
@@ -26,11 +26,15 @@ public class DEmployee
                     result = new Employee(reader.GetInt32("id"), reader.GetString("first_name"), reader.GetString("last_name") ?? "", reader.GetString("email"), reader.GetString("phone_number") ?? "", reader.GetDateTime("hire_date"), reader.GetInt32("salary"), reader.GetDecimal("commission_pct"), reader.GetInt32("manager_id"), reader.GetString("job_id"), reader.GetInt32("department_id"));
                 }
             }
+            else
+            {
+                result = new Employee(0, "failure", "", "", "", DateTime.Now, 0, 0, 0, "", 0);
+            }
             reader.Close();
         }
         catch
         {
-            // ignored
+            result = new Employee(0, "error", "", "", "", DateTime.Now, 0, 0, 0, "", 0);
         }
         finally
         {
@@ -39,7 +43,7 @@ public class DEmployee
         return result;
     }
 
-    public List<Employee> SelectAll()
+    public List<Employee> GetAll()
     {
         List<Employee> results = new List<Employee>();
         var conStr = Connection.Get();

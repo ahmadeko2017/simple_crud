@@ -6,7 +6,7 @@ namespace MVC_Implementation.DataAccess;
 
 public class DHistory
 {
-    public History SelectById(DateTime startDate, int employeeId)
+    public History GetById(DateTime startDate, int employeeId)
     {
         History result = new History(DateTime.Now, 0, DateTime.Now, 0, "");
         var conStr = Connection.Get();
@@ -27,11 +27,15 @@ public class DHistory
                     result = new History(reader.GetDateTime("start_date"), reader.GetInt32("employee_id"), reader.GetDateTime("end_date"), reader.GetInt32("department_id"), reader.GetString("job_id"));
                 }
             }
+            else
+            {
+                result = new History(DateTime.Now, 0, DateTime.Now, 0, "failure");
+            }
             reader.Close();
         }
         catch
         {
-            // ignored
+            result = new History(DateTime.Now, 0, DateTime.Now, 0, "error");
         }
         finally
         {
@@ -40,7 +44,7 @@ public class DHistory
         return result;
     }
 
-    public List<History> SelectAll()
+    public List<History> GetAll()
     {
         List<History> results = new List<History>();
         var conStr = Connection.Get();
