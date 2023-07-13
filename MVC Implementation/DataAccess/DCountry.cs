@@ -27,11 +27,15 @@ public class DCountry
                         reader.GetInt32("region_id"));
                 }
             }
+            else
+            {
+                result = new Country("", "failure", 0);
+            }
             reader.Close();
         }
         catch
         {
-            // ignored
+            result = new Country("", "error", 0);
         }
         finally
         {

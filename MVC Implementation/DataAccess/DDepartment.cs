@@ -26,11 +26,15 @@ public class DDepartment
                     result = new Department(reader.GetInt32("id"), reader.GetString("name"), reader.GetInt32("location_id"), reader.GetInt32("manager_id"));
                 }
             }
+            else
+            {
+                result = new Department(0, "failure", 0, 0);
+            }
             reader.Close();
         }
         catch
         {
-            // ignored
+            result = new Department(0, "error", 0, 0);
         }
         finally
         {

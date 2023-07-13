@@ -3,12 +3,12 @@ using MVC_Implementation.View;
 
 namespace MVC_Implementation.Controllers;
 
-public class EmployeesController
+public class EmployeeController
 {
     private DEmployee _employeeModel;
     private VEmployee _employeeView;
 
-    public EmployeesController(DEmployee employeeModel, VEmployee employeeView)
+    public EmployeeController(DEmployee employeeModel, VEmployee employeeView)
     {
         _employeeModel = employeeModel;
         _employeeView = employeeView;
