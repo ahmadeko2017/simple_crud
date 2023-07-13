@@ -4,17 +4,17 @@ using MVC_Implementation.Models;
 
 namespace MVC_Implementation.DataAccess;
 
-public class DCountry
+public class DDepartment
 {
-    public Country SelectById(string id)
+    public Department SelectById(int id)
     {
-        Country result = new Country("", "", 0);
+        Department result = new Department(0, "", 0, 0);
         var conStr = Connection.Get();
         using var connection = new SqlConnection(conStr);
         connection.Open();
         try
         {
-            string query = "SELECT * FROM countries WHERE id = (@id)";
+            string query = "SELECT * FROM departments WHERE id = (@id)";
             SqlCommand sqlCommand = new SqlCommand(query, connection);
             sqlCommand.Parameters.AddWithValue("@id", id);
             using SqlDataReader reader = sqlCommand.ExecuteReader();
@@ -23,8 +23,7 @@ public class DCountry
             {
                 while (reader.Read())
                 {
-                    result = new Country(reader.GetString("id"), reader.GetString("name"),
-                        reader.GetInt32("region_id"));
+                    result = new Department(reader.GetInt32("id"), reader.GetString("name"), reader.GetInt32("location_id"), reader.GetInt32("manager_id"));
                 }
             }
             reader.Close();
@@ -40,15 +39,15 @@ public class DCountry
         return result;
     }
 
-    public List<Country> SelectAll()
+    public List<Department> SelectAll()
     {
-        List<Country> results = new List<Country>();
+        List<Department> results = new List<Department>();
         var conStr = Connection.Get();
         using var connection = new SqlConnection(conStr);
         connection.Open();
         try
         {
-            string query = "SELECT * FROM countries";
+            string query = "SELECT * FROM departments";
             SqlCommand sqlCommand = new SqlCommand(query, connection);
             using SqlDataReader reader = sqlCommand.ExecuteReader();
                 
@@ -56,8 +55,7 @@ public class DCountry
             {
                 while (reader.Read())
                 {
-                    results.Add(new Country(reader.GetString("id"), reader.GetString("name"),
-                        reader.GetInt32("region_id")));
+                    results.Add(new Department(reader.GetInt32("id"), reader.GetString("name"), reader.GetInt32("location_id"), reader.GetInt32("manager_id")));
                 }
             }
             reader.Close();
@@ -73,7 +71,7 @@ public class DCountry
         return results;
     }
 
-    public int Insert(Country country)
+    public int Insert(Department department)
     {
         int result = 0;
         var conStr = Connection.Get();
@@ -81,11 +79,12 @@ public class DCountry
         connection.Open();
         try
         {
-            string query = "INSERT INTO countries VALUES (@id, @name, @regionId)";
+            string query = "INSERT INTO departments VALUES (@id, @name, @locationId, @managerId)";
             SqlCommand sqlCommand = new SqlCommand(query, connection);
-            sqlCommand.Parameters.AddWithValue("@id", country.Id);
-            sqlCommand.Parameters.AddWithValue("@name", country.Name);
-            sqlCommand.Parameters.AddWithValue("@regionId", country.RegionId);
+            sqlCommand.Parameters.AddWithValue("@id", department.Id);
+            sqlCommand.Parameters.AddWithValue("@name", department.Name);
+            sqlCommand.Parameters.AddWithValue("@locationId", department.LocationId);
+            sqlCommand.Parameters.AddWithValue("@managerId", department.ManagerId);
             result = sqlCommand.ExecuteNonQuery();
         }
         catch
@@ -99,7 +98,7 @@ public class DCountry
         return result;
     }
 
-    public int Update(Country country)
+    public int Update(Department department)
     {
         int result = 0;
         var conStr = Connection.Get();
@@ -107,11 +106,12 @@ public class DCountry
         connection.Open();
         try
         {
-            string query = "UPDATE countries SET  name = @name, region_id = @regionId WHERE id = (@id)";
+            string query = "UPDATE departments SET  name = @name, location_id = @locationId, manager_id = @manager_id WHERE id = (@id)";
             SqlCommand sqlCommand = new SqlCommand(query, connection);
-            sqlCommand.Parameters.AddWithValue("@id", country.Id);
-            sqlCommand.Parameters.AddWithValue("@name", country.Name);
-            sqlCommand.Parameters.AddWithValue("@regionId", country.RegionId);
+            sqlCommand.Parameters.AddWithValue("@id", department.Id);
+            sqlCommand.Parameters.AddWithValue("@name", department.Name);
+            sqlCommand.Parameters.AddWithValue("@locationId", department.LocationId);
+            sqlCommand.Parameters.AddWithValue("@managerId", department.ManagerId);
             result = sqlCommand.ExecuteNonQuery();
         }
         catch
@@ -133,7 +133,7 @@ public class DCountry
         connection.Open();
         try
         {
-            string query = "DELETE countries WHERE id = (@id)";
+            string query = "DELETE departments WHERE id = (@id)";
             SqlCommand sqlCommand = new SqlCommand(query, connection);
             sqlCommand.Parameters.AddWithValue("@id", id);
             result = sqlCommand.ExecuteNonQuery();
