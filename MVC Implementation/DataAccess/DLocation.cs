@@ -4,17 +4,17 @@ using MVC_Implementation.Models;
 
 namespace MVC_Implementation.DataAccess;
 
-public class DDepartment
+public class DLocation
 {
-    public Department SelectById(int id)
+    public Location SelectById(int id)
     {
-        Department result = new Department(0, "", 0, 0);
+        Location result = new Location(0, "", "", "", "", "");
         var conStr = Connection.Get();
         using var connection = new SqlConnection(conStr);
         connection.Open();
         try
         {
-            string query = "SELECT * FROM departments WHERE id = (@id)";
+            string query = "SELECT * FROM locations WHERE id = @id";
             SqlCommand sqlCommand = new SqlCommand(query, connection);
             sqlCommand.Parameters.AddWithValue("@id", id);
             using SqlDataReader reader = sqlCommand.ExecuteReader();
@@ -23,7 +23,7 @@ public class DDepartment
             {
                 while (reader.Read())
                 {
-                    result = new Department(reader.GetInt32("id"), reader.GetString("name"), reader.GetInt32("location_id"), reader.GetInt32("manager_id"));
+                    result = new Location(reader.GetInt32("id"), reader.GetString("street_address"), reader.GetString("postal_code"), reader.GetString("city"), reader.GetString("state_province"), reader.GetString("country_id"));
                 }
             }
             reader.Close();
@@ -39,15 +39,15 @@ public class DDepartment
         return result;
     }
 
-    public List<Department> SelectAll()
+    public List<Location> SelectAll()
     {
-        List<Department> results = new List<Department>();
+        List<Location> results = new List<Location>();
         var conStr = Connection.Get();
         using var connection = new SqlConnection(conStr);
         connection.Open();
         try
         {
-            string query = "SELECT * FROM departments";
+            string query = "SELECT * FROM locations";
             SqlCommand sqlCommand = new SqlCommand(query, connection);
             using SqlDataReader reader = sqlCommand.ExecuteReader();
                 
@@ -55,7 +55,7 @@ public class DDepartment
             {
                 while (reader.Read())
                 {
-                    results.Add(new Department(reader.GetInt32("id"), reader.GetString("name"), reader.GetInt32("location_id"), reader.GetInt32("manager_id")));
+                    results.Add(new Location(reader.GetInt32("id"), reader.GetString("street_address"), reader.GetString("postal_code"), reader.GetString("city"), reader.GetString("state_province"), reader.GetString("country_id")));
                 }
             }
             reader.Close();
@@ -71,7 +71,7 @@ public class DDepartment
         return results;
     }
 
-    public int Insert(Department department)
+    public int Insert(Location location)
     {
         int result = 0;
         var conStr = Connection.Get();
@@ -79,12 +79,14 @@ public class DDepartment
         connection.Open();
         try
         {
-            string query = "INSERT INTO departments VALUES (@id, @name, @locationId, @managerId)";
+            string query = "INSERT INTO locations VALUES (@id, @streetAddress, @postalCode, @city, @stateProvince, @countryId)";
             SqlCommand sqlCommand = new SqlCommand(query, connection);
-            sqlCommand.Parameters.AddWithValue("@id", department.Id);
-            sqlCommand.Parameters.AddWithValue("@name", department.Name);
-            sqlCommand.Parameters.AddWithValue("@locationId", department.LocationId);
-            sqlCommand.Parameters.AddWithValue("@managerId", department.ManagerId);
+            sqlCommand.Parameters.AddWithValue("@id", location.Id);
+            sqlCommand.Parameters.AddWithValue("@streetAddress", location.StreetAddress);
+            sqlCommand.Parameters.AddWithValue("@postalCode", location.PostalCode);
+            sqlCommand.Parameters.AddWithValue("@city", location.City);
+            sqlCommand.Parameters.AddWithValue("@stateProvince", location.StateProvince);
+            sqlCommand.Parameters.AddWithValue("@countryId", location.CountryId);
             result = sqlCommand.ExecuteNonQuery();
         }
         catch
@@ -98,7 +100,7 @@ public class DDepartment
         return result;
     }
 
-    public int Update(Department department)
+    public int Update(Location location)
     {
         int result = 0;
         var conStr = Connection.Get();
@@ -106,12 +108,14 @@ public class DDepartment
         connection.Open();
         try
         {
-            string query = "UPDATE departments SET  name = @name, location_id = @locationId, manager_id = @manager_id WHERE id = (@id)";
+            string query = "UPDATE locations SET street_address = @streetAddress, postal_code = @postalCode, city = @city, state_province = @stateProvince, country_id = @countryId WHERE id = @id";
             SqlCommand sqlCommand = new SqlCommand(query, connection);
-            sqlCommand.Parameters.AddWithValue("@id", department.Id);
-            sqlCommand.Parameters.AddWithValue("@name", department.Name);
-            sqlCommand.Parameters.AddWithValue("@locationId", department.LocationId);
-            sqlCommand.Parameters.AddWithValue("@managerId", department.ManagerId);
+            sqlCommand.Parameters.AddWithValue("@id", location.Id);
+            sqlCommand.Parameters.AddWithValue("@streetAddress", location.StreetAddress);
+            sqlCommand.Parameters.AddWithValue("@postalCode", location.PostalCode);
+            sqlCommand.Parameters.AddWithValue("@city", location.City);
+            sqlCommand.Parameters.AddWithValue("@stateProvince", location.StateProvince);
+            sqlCommand.Parameters.AddWithValue("@countryId", location.CountryId);
             result = sqlCommand.ExecuteNonQuery();
         }
         catch
@@ -133,7 +137,7 @@ public class DDepartment
         connection.Open();
         try
         {
-            string query = "DELETE departments WHERE id = (@id)";
+            string query = "DELETE locations WHERE id = @id";
             SqlCommand sqlCommand = new SqlCommand(query, connection);
             sqlCommand.Parameters.AddWithValue("@id", id);
             result = sqlCommand.ExecuteNonQuery();

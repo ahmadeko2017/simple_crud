@@ -139,7 +139,7 @@ public class DEmployee
         return result;
     }
 
-    public int Delete(string id)
+    public int Delete(int id)
     {
         int result = 0;
         var conStr = Connection.Get();
