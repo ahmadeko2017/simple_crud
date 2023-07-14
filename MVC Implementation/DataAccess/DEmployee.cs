@@ -86,7 +86,7 @@ public class DEmployee
             string query = "INSERT INTO employees VALUES (@id, @firstName ,@lastName, @email, @phoneNumber, @hireDate, @salary, @commissionPct, @managerId, @jobId, @departmentId)";
             SqlCommand sqlCommand = new SqlCommand(query, connection);
             sqlCommand.Parameters.AddWithValue("@id", employee.Id);
-            sqlCommand.Parameters.AddWithValue("@firstName", employee.FirsName);
+            sqlCommand.Parameters.AddWithValue("@firstName", employee.FirstName);
             sqlCommand.Parameters.AddWithValue("@lastName", employee.LastName);
             sqlCommand.Parameters.AddWithValue("@email", employee.Email);
             sqlCommand.Parameters.AddWithValue("@phoneNumber", employee.PhoneNumber);
@@ -120,7 +120,7 @@ public class DEmployee
             string query = "UPDATE employees SET first_name = @firstName ,last_name = @lastName, email = @email, phone_number = @phoneNumber, hire_date = @hireDate, salary = @salary, commission_pct = @commissionPct, manager_id = @managerId, job_id = @jobId, department_id = @departmentId WHERE id = (@id)";
             SqlCommand sqlCommand = new SqlCommand(query, connection);
             sqlCommand.Parameters.AddWithValue("@id", employee.Id);
-            sqlCommand.Parameters.AddWithValue("@firstName", employee.FirsName);
+            sqlCommand.Parameters.AddWithValue("@firstName", employee.FirstName);
             sqlCommand.Parameters.AddWithValue("@lastName", employee.LastName);
             sqlCommand.Parameters.AddWithValue("@email", employee.Email);
             sqlCommand.Parameters.AddWithValue("@phoneNumber", employee.PhoneNumber);

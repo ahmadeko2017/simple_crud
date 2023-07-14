@@ -1,18 +1,4 @@
-﻿// using MVC_Implementation.DataAccess;
-
-// DCountry dataCountry = new DCountry();
-// dataCountry.Insert("ZZ", "Zaza Zaza", 5);
-// dataCountry.Update("ZZ", "Zaza Zizi", 6);
-// var data = dataCountry.SelectById("ZZ");
-// Console.WriteLine(data.Id + data.Name + data.RegionId);
-// var dataList = dataCountry.SelectAll();
-// foreach (var data in dataList)
-// {
-//     Console.WriteLine(data.Id + data.Name + data.RegionId);
-// }
-// dataCountry.Delete("zz");
-
-using MVC_Implementation.Controllers;
+﻿using MVC_Implementation.Controllers;
 using MVC_Implementation.DataAccess;
 using MVC_Implementation.Models;
 using MVC_Implementation.Utility;
@@ -41,7 +27,8 @@ public class Program
             Console.WriteLine(" [5] Jobs");
             Console.WriteLine(" [6] Location");
             Console.WriteLine(" [7] Regions");
-            Console.WriteLine(" [8] Exit");
+            Console.WriteLine(" [8] Linq");
+            Console.WriteLine(" [9] Exit");
             Console.WriteLine("========================");
 
             try
@@ -72,7 +59,10 @@ public class Program
                     case 7:
                         RegionMenu();
                         break;
-                    case 8:
+                    case 8 :
+                        LinqMenu();
+                        break;
+                    case 9:
                         ulang = false;
                         break;
                     default:
@@ -87,7 +77,20 @@ public class Program
             }
         } while (ulang);
     }
-    
+
+    private static void LinqMenu()
+    {
+        var dEmployee = new DEmployee();
+        var dDepartment = new DDepartment();
+        var dLocation = new DLocation();
+        var dCountry = new DCountry();
+        var dRegion = new DRegion();
+        var vLinq = new VLinq();
+        LinqController linqController = new LinqController(dEmployee, dDepartment, dLocation, dCountry, dRegion);
+        var result = linqController.Start();
+        vLinq.LinqMenu(result);
+    }
+
     private static void CountryMenu()
     {
         DCountry country = new DCountry();

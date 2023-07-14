@@ -85,7 +85,7 @@ public class EmployeeController
     {
         var job = _employeeView.GetByIdMenu();
         var result = _employeeModel.GetById(job);
-        switch (result.FirsName)
+        switch (result.FirstName)
         {
             case "error":
                 _employeeView.Error();

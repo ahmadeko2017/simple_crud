@@ -15,7 +15,7 @@ public class VEmployee
     public void GetById(Employee employee)
     {
         Console.WriteLine($" id = {employee.Id}");
-        Console.WriteLine($" first_name = {employee.FirsName}");
+        Console.WriteLine($" first_name = {employee.FirstName}");
         Console.WriteLine($" last_name = {employee.LastName}");
         Console.WriteLine($" email = {employee.Email}");
         Console.WriteLine($" phone_number = {employee.PhoneNumber}");
