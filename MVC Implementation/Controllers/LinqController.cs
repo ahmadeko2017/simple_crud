@@ -21,7 +21,7 @@ public class LinqController
         _region = region;
     }
 
-    public List<Linq> Start()
+    public IEnumerable<Exam01> Exam01()
     {
         var getEmployees = _employee.GetAll();
         var getDepartments = _department.GetAll();
@@ -35,7 +35,18 @@ public class LinqController
                 join l in getLocation on d.LocationId equals l.Id
                 join c in getCountries on l.CountryId equals c.Id
                 join r in getRegions on c.RegionId equals r.Id
-                select new Linq(e.Id, $"{e.FirstName} {e.LastName}", e.Email, e.PhoneNumber, e.Salary, d.Name,l.StreetAddress, c.Name, r.Name)).ToList();
+                select new Exam01(e.Id, $"{e.FirstName} {e.LastName}", e.Email, e.PhoneNumber, e.Salary, d.Name,l.StreetAddress, c.Name, r.Name));
+        return filtered;
+    }
+
+    public IEnumerable<Exam02> Exam02()
+    {
+        var getEmployees = _employee.GetAll();
+        var getDepartments = _department.GetAll();
+
+        var filtered = (from d in getDepartments
+            join g in (from e in getEmployees group e by e.DepartmentId into g select g) on d.Id equals g.Key
+            select new Exam02(d.Name, g.Count(), g.Min(e => e.Salary), g.Max(e => e.Salary), g.Average(e => e.Salary)));
         return filtered;
     }
 }

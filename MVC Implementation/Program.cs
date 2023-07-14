@@ -70,9 +70,8 @@ public class Program
                         break;
                 }
             }
-            catch (Exception e)
+            catch 
             {
-                Console.WriteLine("Error : " + e);
                 Console.WriteLine("Input Hanya diantara 1-7!");
             }
         } while (ulang);
@@ -80,15 +79,8 @@ public class Program
 
     private static void LinqMenu()
     {
-        var dEmployee = new DEmployee();
-        var dDepartment = new DDepartment();
-        var dLocation = new DLocation();
-        var dCountry = new DCountry();
-        var dRegion = new DRegion();
-        var vLinq = new VLinq();
-        LinqController linqController = new LinqController(dEmployee, dDepartment, dLocation, dCountry, dRegion);
-        var result = linqController.Start();
-        vLinq.LinqMenu(result);
+        VLinq vLinq = new VLinq();
+        vLinq.LinqMenu();
     }
 
     private static void CountryMenu()

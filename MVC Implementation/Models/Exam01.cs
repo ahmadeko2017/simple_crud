@@ -1,8 +1,8 @@
 ﻿namespace MVC_Implementation.Models;
 
-public class Linq
+public class Exam01
 {
-    public Linq(int id, string fullName, string email, string phoneNumber,int salary, string departmentName, string streetAddress, string countryName, string regionName)
+    public Exam01(int id, string fullName, string email, string phoneNumber,int salary, string departmentName, string streetAddress, string countryName, string regionName)
     {
         Id = id;
         FullName = fullName;
